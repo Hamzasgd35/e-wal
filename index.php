@@ -1,5 +1,17 @@
+<?php
+require_once("db_connection.php");
+require_once("person.php");
+
+$person = new person();
+
+$conn = new db_connection();
+$conn->create_connection();
+session_start();
+
+
+?>
+
 <!DOCTYPE html>
-<?php    ?>
 <html lang="en">
 
     <head>
@@ -116,36 +128,26 @@
 			    		<h3 class="panel-title">Signup </h3>
 			 			</div>
 			 			<div class="panel-body">
-			    		<form role="form">
-			    			<div class="row">
-			    				<div class="col-xs-6 col-sm-6 col-md-6">
-			    					<div class="form-group">
-			                <input type="text" name="first_name" id="first_name" class="form-control input-sm floatlabel" placeholder="First Name">
-			    					</div>
-			    				</div>
-			    				<div class="col-xs-6 col-sm-6 col-md-6">
-			    					<div class="form-group">
-			    						<input type="text" name="last_name" id="last_name" class="form-control input-sm" placeholder="Last Name">
-			    					</div>
-			    				</div>
-			    			</div>
-
+			    		<form action="index.php" method ="post" enctype="multipart/form-data">
 			    			<div class="form-group">
-			    				<input type="email" name="email" id="email" class="form-control input-sm" placeholder="Email Address">
+			    				<input type="text" name="full_name" class="form-control input-sm" placeholder="Full Name">
 			    			</div>
 							<div class="form-group">
-			    				<input type="username" name="username" id="username" class="form-control input-sm" placeholder="Username">
+			    				<input type="email" name="email" class="form-control input-sm" placeholder="Email Address">
+			    			</div>
+							<div class="form-group">
+			    				<input type="username" name="username" class="form-control input-sm" placeholder="Username">
 			    			</div>
 
 			    			<div class="row">
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			    						<input type="password" name="password" id="password" class="form-control input-sm" placeholder="Password">
+			    						<input type="password" name="password" class="form-control input-sm" placeholder="Password">
 			    					</div>
 			    				</div>
 			    				<div class="col-xs-6 col-sm-6 col-md-6">
 			    					<div class="form-group">
-			    						<input type="password" name="password_confirmation" id="password_confirmation" class="form-control input-sm" placeholder="Confirm Password">
+			    						<input type="password" name="confirm_password" class="form-control input-sm" placeholder="Confirm Password">
 			    					</div>
 			    				</div>
 			    			</div>
@@ -154,7 +156,7 @@
 							</br>
 							</div>
 			    			
-			    			<a href="#" class="btn btn-success gradient pull-right"><span class="glyphicon glyphicon-log-in"></span> Proceed</a>
+			    			<button href="" name="signup" type="submit" class="btn btn-success gradient pull-right"><span class="glyphicon glyphicon-log-in"></span> Proceed</button>
 			    		
 			    		</form>
 			    	</div>
@@ -165,6 +167,13 @@
 			
     	</div>
     </div>
+	
+<?php	
+	if(isset($_POST['signup'])){
+	$person->signup($conn);
+	echo "<script> window.location=\"http://localhost/E-Wallet1/index.php\" </script>";
+	}
+?>
 
 
 </body>
